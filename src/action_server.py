@@ -19,6 +19,7 @@ class youbot_action_server(object):
         #create two publishers, one for publishing the topic to base and another to arm
         self.pub1 = rospy.Publisher("base_controller/follow_joint_trajectory/goal", FollowJointTrajectoryActionGoal, queue_size=1)
         
+        #create action client which can send the arm trajectory 
         self.arm_client = actionlib.SimpleActionClient('arm_1/arm_controller/follow_joint_trajectory', FollowJointTrajectoryAction)
         
 #        self.pub2 = rospy.Publisher("arm1/arm_controller/follow_joint_trajectory/goal", FollowJointTrajectoryActionGoal, queue_size=1)
@@ -27,35 +28,27 @@ class youbot_action_server(object):
    
     def execute_cb(self, goal):
         
+        #create action for arm          
         arm_action = FollowJointTrajectoryAction()
         
-        #create two seperate goals 
+        #create two seperate goals, one for base and one for arm
         base_fjtag = FollowJointTrajectoryActionGoal()
         arm_fjtag = FollowJointTrajectoryActionGoal()
         
-                
-#        base_fjtag.goal_id = goal.goal_id
-#        base_fjtag.header.stamp = goal.goal_id.stamp
-        
+       
+        #set the base goal and name the virtual joints 
         base_goal = FollowJointTrajectoryGoal()
         base_jt = JointTrajectory()
         base_jt.joint_names = ["virtual_x", "virtual_y", "virtual_theta"] 
         
-#        arm_fjtag.goal_id = goal.goal_id
-#        arm_fjtag.header.stamp = goal.goal_id.stamp
-        
+        #set the arm goal and name the arm joints        
         arm_goal = FollowJointTrajectoryGoal()
         arm_jt = JointTrajectory()
         arm_jt.joint_names = ["arm_joint_1", "arm_joint_2", "arm_joint_3","arm_joint_4","arm_joint_5"] 
         
         for pt in goal.trajectory.points:
-            
-            pt_temp = JointTrajectoryPoint()
-            
-            #allocate the first three pt.position(for base) elements to base trajectory
-#            pt_temp.positions = pt.positions[5:8]
-#            pt_temp.velocities = pt.velocities[5:8]
-#            pt_temp.accelerations = pt.accelerations[5:8]
+            # Fetch the base position from Moveit plan
+            pt_temp = JointTrajectoryPoint()            
             pt_temp.positions.append(pt.positions[6])
             pt_temp.positions.append(pt.positions[7])
             pt_temp.positions.append(pt.positions[5])
@@ -66,7 +59,6 @@ class youbot_action_server(object):
             pt_temp = JointTrajectoryPoint()
             
             #allocate the last five pt.position(for arm) elements to arm trajectory
-            
             pt_temp.positions = pt.positions[0:5]
 #            pt_temp.velocities = pt.velocities[0:5]
 #            pt_temp.accelerations = pt.accelerations[0:5]

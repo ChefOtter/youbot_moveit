@@ -43,13 +43,11 @@
       <!-- If needed, broadcast static tf for robot root -->
       <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 /odom /moveit/odom 100" />
 
-      <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_1" args="0 0 0 0 0 0 /base_footprint /moveit/base_footprint 100" />
 
       <!-- joint state publisher -->
       <node name="joint_state_publisher_2" pkg="youbot_moveit" type="m_joint_state.py" />
       
-      
     </group>
-    
+    <!-- relay the moviet joint_states message with gazebo joint_states message-->
     <node pkg="topic_tools" type="relay" name="relay2" args="/joint_states /moveit/joint_states " /> 
 </launch>

@@ -45,14 +45,14 @@ class BaseControllerTest( object ):
 
         # create all publishers and subscribers:
         self.cmd_pub = rospy.Publisher("cmd_vel", Twist, queue_size=1)
-#        self.joint_state_pub =rospy.Publisher('joint_states',JointState,queue_size=10)
+        
+        #set the transfrom broadcaster to publish the velocity transfrom from spatial frame to body frame
         self.br = tf.TransformBroadcaster()
         self.timer = rospy.Timer(rospy.Duration(0.005), self.timercb)
+        #intialize the subscriber to subscribe the data from odom/, this odom/ is used as feedback for driving the base 
         self.odom_sub = rospy.Subscriber("odom", Odometry, self.odomcb, queue_size=10)
         self.traj_sub = rospy.Subscriber("base_controller/follow_joint_trajectory/goal", FollowJointTrajectoryActionGoal,
-                         self.trajcb, queue_size=1)
-       
-                                      
+                         self.trajcb, queue_size=1)                           
         return
 
     def odomcb(self, data):
@@ -63,7 +63,8 @@ class BaseControllerTest( object ):
     def timercb(self, event):
         self.run_controller()
         return
-
+        
+        #this function is to derive the velocity from the spline 
     def estimate_derivative(self, t, eps=0.001):
         if self.ref_arr is None:
             rospy.logerr("No spline available for derivative!")
@@ -73,7 +74,9 @@ class BaseControllerTest( object ):
             for i in range(3):
                 state[i] = interpolate.splev(t, self.ref_arr[i], der=1, ext=2)
         return state
-
+        
+        #this function is used to interpolate the discontinous base trajectory created by Moveit
+        #so that the velocity can be obtained by differentiating the spline 
     def ref_func(self, t):
         if self.ref_arr is None:
             rospy.logerr("No spline available!")
@@ -84,15 +87,15 @@ class BaseControllerTest( object ):
                 state[i] = interpolate.splev(t, self.ref_arr[i], der=0, ext=2)
         return state
 
-
+        #this function clamps the moving velocity of youBot 
     def clamp_controls(self, twist):
         twist.linear.x = np.clip(twist.linear.x, -MAX_X, MAX_X)
         twist.linear.y = np.clip(twist.linear.y, -MAX_Y, MAX_Y)
         twist.angular.z = np.clip(twist.angular.z, -MAX_TH, MAX_TH)
         return twist
         
+        #this function prevents the robot from dead band.
     def low_limit(self, twist):
-        
         if  math.fabs(twist.linear.x)<0.01:
             twist.linear.x = 0
         if  math.fabs(twist.linear.y) <0.01:
@@ -101,7 +104,7 @@ class BaseControllerTest( object ):
             twist.angular.z = 0
         return twist
     
-
+        #controller function which output the velocities for youBot drive
     def run_controller(self):
         if self.X is None:
             return
@@ -157,7 +160,7 @@ class BaseControllerTest( object ):
             tr.quaternion_from_euler(Xref[2], 0, 0, 'szyx'),
             rospy.Time.now(), "ref_frame", "odom")
         return
-
+        
     def odom_to_state(self, data):
         quat = data.pose.pose.orientation
         q = np.array([quat.x, quat.y, quat.z, quat.w])
@@ -167,7 +170,7 @@ class BaseControllerTest( object ):
             data.pose.pose.position.y,
             theta
             ])
-
+        #this callback function returns the base trajectory and interpolate it 
     def trajcb(self, data):
         # we just received a trajectory goal, let's fill out interpolation function:
         self.ref_time = []
