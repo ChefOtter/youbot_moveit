@@ -21,13 +21,13 @@ The idea of how this package works is:
 4. As it is mentioned, a new controller for the control of youBot drive is created which can convert the position data from base_controller/follow_joint_trajectory into twist message that youBot or Gazebo knows how to move the drive. What this controller (now I use second_controller.py)
 specifically does is:
 
--This controller firstly receives the 3 DOF trajectory from the action server, and this trajectory is described as a set of discontinuous position states in series. 
+    -This controller firstly receives the 3 DOF trajectory from the action server, and this trajectory is described as a set of discontinuous position states in series. 
 
--Then this controller uses cubic interpolation to create a spline for the 3 DOF trajectory and calculates the velocity by deriving the spline. This velocity is wrapped into twist message which youBot knows how to move its base by rolling its wheel. 
+    -Then this controller uses cubic interpolation to create a spline for the 3 DOF trajectory and calculates the velocity by deriving the spline. This velocity is wrapped into twist message which youBot knows how to move its base by rolling its wheel. 
 
--Since the twist message describes the velocity in the body frame so it is necessary to design a transform which can convert the spatial velocity obtained by deriving the spline, into the body frame velocity.
+    -Since the twist message describes the velocity in the body frame so it is necessary to design a transform which can convert the spatial velocity obtained by deriving the spline, into the body frame velocity.
 
--A proportional control is added to the controller improve the transient error when youBot is executing the plan. This control takes the /odom as feedback.
+    -A proportional control is added to the controller improve the transient error when youBot is executing the plan. This control takes the /odom as feedback.
 
 5. Since the original /joint_states topic published from either Gazebo or real youBot does not contain the extra 3 DOF joint states for those virtual states because the URDF file they use only have 5 DOF. So to create a 8 DOF /joint_states topic, a node is created (by m_joint_state.py) to create the 3 DOF base joint states called /m/joint_states from /odom (this requires some calculations). Then in the launch file, another node is created to relay the original /joint_states to m/joint_states to add 5 DOF to it. This help create a whole tf tree from /odom to virtual joints and then to the end effector on the arm. 
 
