@@ -7,7 +7,8 @@ What this package does is to implement a mobile manipulator for KUKA youBot in M
 # How to use this package
 1. You should first git clone this package
 
-2. Then git clone "robot_description" package using following links:
+2. Then git clone "robot_description" package using following links
+
 # Package Function Description
 The idea of how this package works is:
 1. Based on the original youbot.urdf, a new youbot.urdf is created where three virtual joints are added. These three virtual joints are x, y and theta (which describes the DOF for the robot drive). 
