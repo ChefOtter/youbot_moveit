@@ -44,7 +44,7 @@
       <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 /odom /moveit/odom 100" />
 
 
-      <!--create joint state publisher for moveit -->
+      <!--create vitrual joint state publisher for moveit -->
       <node name="joint_state_publisher_2" pkg="youbot_moveit" type="m_joint_state.py" />
       
     </group>
