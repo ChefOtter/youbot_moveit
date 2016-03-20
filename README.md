@@ -2,12 +2,14 @@
 This is the README for youbot_moveit.
 
 # Synopsis
-What this package does is to implement a mobile manipulator for KUKA youBot in Moveit. In this package, Moveit is able to do the plan for all 8 DOF for youBot (this include the plan for the nonholonomic drive of the robot).
+What this package does is to implement a mobile manipulator for KUKA youBot in Moveit. In this package, Moveit is able to do the plan for all 8 DOF for youBot (this include the plan for the nonholonomic drive of the robot). A breif demo can be watched in following link:
+    https://vimeo.com/159656690
 
 # How to use this package
 1. You should first git clone this package
 
-2. Then git clone "robot_description" package using following links
+2. Then git clone "robot_description" package which stored the specifc yuobot.urdf for this youbot_moveit package using following links:
+    https://github.com/seanbai2008/youbot_description.git
 
 # Package Function Description
 The idea of how this package works is:
