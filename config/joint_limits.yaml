@@ -29,16 +29,16 @@ joint_limits:
     max_acceleration: 0
   virtual_theta:
     has_velocity_limits: true
-    max_velocity: 0.5
+    max_velocity: 0.2
     has_acceleration_limits: false
     max_acceleration: 0
   virtual_x:
     has_velocity_limits: true
-    max_velocity: 0.5
+    max_velocity: 0.2
     has_acceleration_limits: false
     max_acceleration: 0
   virtual_y:
     has_velocity_limits: true
-    max_velocity: 0.5
+    max_velocity: 0.2
     has_acceleration_limits: false
     max_acceleration: 0

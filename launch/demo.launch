@@ -35,8 +35,7 @@
       <include file="$(find youbot_moveit)/launch/default_warehouse_db.launch" if="$(arg db)">
         <arg name="moveit_warehouse_database_path" value="$(arg db_path)"/>
       </include>
-      
-      
+
       <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" >
       <param name="tf_prefix" value="moveit" />
       </node>
@@ -44,10 +43,12 @@
       <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 /odom /moveit/odom 100" />
 
 
-      <!--create vitrual joint state publisher for moveit -->
-      <node name="joint_state_publisher_2" pkg="youbot_moveit" type="m_joint_state.py" />
+      <!--create vitrual joint state publisher for moveit, we know that Gazebo or real robot only publish 5 DOF for their joint_state, but now we need 8 DOF joint_state -->
+      <node name="moveit_joint_state_publisher" pkg="youbot_moveit" type="m_joint_state.py" />
       
     </group>
+    
+    <node name="base_controller" pkg="youbot_moveit" type="base_controller.py" />
     <!-- relay the moviet joint_states message with gazebo joint_states message-->
     <node pkg="topic_tools" type="relay" name="relay2" args="/joint_states /moveit/joint_states " /> 
 </launch>

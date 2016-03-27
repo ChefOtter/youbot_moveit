@@ -28,6 +28,8 @@ class youbot_action_server(object):
    
     def execute_cb(self, goal):
         
+        success = True
+        
         #create action for arm          
         arm_action = FollowJointTrajectoryAction()
         
@@ -63,7 +65,7 @@ class youbot_action_server(object):
 #            pt_temp.velocities = pt.velocities[0:5]
 #            pt_temp.accelerations = pt.accelerations[0:5]
 #            
-            pt_temp.time_from_start = pt.time_from_start
+            pt_temp.time_from_start = pt.time_from_start + rospy.Duration(0.1)
             
             arm_jt.points.append(pt_temp)
             
@@ -77,6 +79,9 @@ class youbot_action_server(object):
         
         # check that preempt has not been requested by the client
         if self._as.is_preempt_requested():
+           rospy.loginfo("This action has been preempted")
+           self._as.set_preempted()
+           success = False 
            sys.exit() 
             #if preempted, can do something here
             
@@ -84,7 +89,12 @@ class youbot_action_server(object):
         else:
             self.pub1.publish(base_fjtag)
             self.arm_client.send_goal_and_wait(arm_action)
+            success = True
 #           self.pub2.publish(arm_fjtag)
+
+        if success:
+            rospy.loginfo('Action Succeeded')
+            self._as.set_succeeded()
              
 
      
