@@ -23,7 +23,7 @@ class New_joint_state( object ):
         self.pub = rospy.Publisher("joint_states", JointState, queue_size=10)                   
         return
 
- +       #this function creates the base joint_states so that it can be relayed by arm_joint states meesage so that a 8 DOF joint state message can be created  
+        #this function creates the base joint_states so that it can be relayed by arm_joint states meesage so that a 8 DOF joint state message can be created  
     def odomcb(self, data):
         self.X = self.odom_to_state(data)
         # if self.running_flag:
@@ -54,5 +54,5 @@ def main():
     rospy.spin()
 
 if __name__ == '__main__':
-    rospy.init_node('joint_state_publisher_2')
+    rospy.init_node('moveit_joint_state_publisher')
     main()
