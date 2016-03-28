@@ -26,11 +26,11 @@ Kx = 0.1
 Ky = 0.1
 Kth = 0.0
 
-Kix = 0.00001
-Kiy = 0.00001
+Kix = 0
+Kiy = 0
 
-MAX_X = 0.2
-MAX_Y = 0.2
+MAX_X = 0.1
+MAX_Y = 0.1
 MAX_TH = np.pi/4.0
 
 class BaseController( object ):

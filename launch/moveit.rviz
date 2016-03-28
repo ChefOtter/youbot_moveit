@@ -9,8 +9,12 @@ Panels:
         - /Grid1
         - /TF1
         - /MotionPlanning1
+        - /MotionPlanning1/Scene Geometry1
+        - /MotionPlanning1/Planning Request1
+        - /MotionPlanning1/Planning Metrics1
+        - /MotionPlanning1/Planned Path1
       Splitter Ratio: 0.747036
-    Tree Height: 475
+    Tree Height: 449
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -44,37 +48,7 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        arm_link_0:
-          Value: true
-        arm_link_1:
-          Value: true
-        arm_link_2:
-          Value: true
-        arm_link_3:
-          Value: true
-        arm_link_4:
-          Value: true
-        arm_link_5:
-          Value: true
         base_footprint:
-          Value: true
-        base_laser_front_link:
-          Value: true
-        base_link:
-          Value: true
-        caster_link_bl:
-          Value: true
-        caster_link_br:
-          Value: true
-        caster_link_fl:
-          Value: true
-        caster_link_fr:
-          Value: true
-        gripper_finger_link_l:
-          Value: true
-        gripper_finger_link_r:
-          Value: true
-        gripper_palm_link:
           Value: true
         moveit/arm_link_0:
           Value: true
@@ -128,52 +102,17 @@ Visualization Manager:
           Value: true
         odom:
           Value: true
-        plate_link:
-          Value: true
-        wheel_link_bl:
-          Value: true
-        wheel_link_br:
-          Value: true
-        wheel_link_fl:
-          Value: true
-        wheel_link_fr:
+        ref_frame:
           Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: false
       Show Axes: true
-      Show Names: true
+      Show Names: false
       Tree:
         odom:
           base_footprint:
-            base_link:
-              arm_link_0:
-                arm_link_1:
-                  arm_link_2:
-                    arm_link_3:
-                      arm_link_4:
-                        arm_link_5:
-                          gripper_palm_link:
-                            gripper_finger_link_l:
-                              {}
-                            gripper_finger_link_r:
-                              {}
-              base_laser_front_link:
-                {}
-              caster_link_bl:
-                wheel_link_bl:
-                  {}
-              caster_link_br:
-                wheel_link_br:
-                  {}
-              caster_link_fl:
-                wheel_link_fl:
-                  {}
-              caster_link_fr:
-                wheel_link_fr:
-                  {}
-              plate_link:
-                {}
+            {}
           moveit/odom:
             moveit/virtual_link_1:
               moveit/virtual_link_2:
@@ -207,6 +146,8 @@ Visualization Manager:
                           {}
                       moveit/plate_link:
                         {}
+          ref_frame:
+            {}
       Update Interval: 0
       Value: true
     - Class: moveit_rviz_plugin/MotionPlanning
@@ -353,7 +294,7 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-        Loop Animation: false
+        Loop Animation: true
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true
@@ -379,8 +320,8 @@ Visualization Manager:
         Show Workspace: false
         Start State Alpha: 1
         Start State Color: 0; 255; 0
-      Planning Scene Topic: planning_scene
-      Robot Description: robot_description
+      Planning Scene Topic: /moveit/move_group/monitored_planning_scene
+      Robot Description: /moveit/robot_description
       Scene Geometry:
         Scene Alpha: 0.9
         Scene Color: 50; 230; 50
@@ -532,36 +473,36 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.55459
+      Distance: 4.30217
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.0464473
-        Y: -0.116049
+        X: -0.161973
+        Y: -0.730446
         Z: -1.49006e-08
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.944796
+      Pitch: 0.764796
       Target Frame: odom
       Value: XYOrbit (rviz)
-      Yaw: 3.53176
+      Yaw: 6.04541
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1056
+  Height: 1028
   Help:
     collapsed: false
   Hide Left Dock: false
   Hide Right Dock: false
   Motion Planning:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000002b1000003dafc0200000005fb000000100044006900730070006c00610079007301000000280000021c000000dd00fffffffb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a0056006900650077007300000003b0000000b0000000b000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e0067010000024a000001b8000001ab00ffffff0000048e000003da00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000100000000000002b1000003befc0200000005fb000000100044006900730070006c006100790073010000002800000202000000dd00fffffffb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a0056006900650077007300000003b0000000b0000000b000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000230000001b6000001ab00ffffff0000048e000003be00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1861
-  X: 59
-  Y: 24
+  X: 49
+  Y: 14

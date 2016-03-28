@@ -62,8 +62,8 @@ class youbot_action_server(object):
             
             #allocate the last five pt.position(for arm) elements to arm trajectory
             pt_temp.positions = pt.positions[0:5]
-#            pt_temp.velocities = pt.velocities[0:5]
-#            pt_temp.accelerations = pt.accelerations[0:5]
+            pt_temp.velocities = pt.velocities[0:5]
+            pt_temp.accelerations = pt.accelerations[0:5]
 #            
             pt_temp.time_from_start = pt.time_from_start + rospy.Duration(0.1)
             

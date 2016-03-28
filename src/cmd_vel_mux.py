@@ -31,7 +31,7 @@ class cmd_vel_mux( object ):
         rospy.on_shutdown(self.kb.set_normal_term) 
         
         #the flag which tells if to publish "cmd_vel" 
-        self.publish_cmd_vel = 1
+        self.publish_cmd_vel = 0
                         
         return
         
