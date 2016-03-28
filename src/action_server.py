@@ -11,7 +11,7 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 class youbot_action_server(object):
 
     def __init__(self):
-        
+    
         #create action server which can deal with 8-DOF "follow_joint_trajectory" action
         self._as = actionlib.SimpleActionServer("moveit/arm_controller/follow_joint_trajectory", FollowJointTrajectoryAction, execute_cb=self.execute_cb, auto_start = False)
         
@@ -82,7 +82,7 @@ class youbot_action_server(object):
            rospy.loginfo("This action has been preempted")
            self._as.set_preempted()
            success = False 
-           sys.exit() 
+           self._as.set_cancelled() 
             #if preempted, can do something here
             
            
