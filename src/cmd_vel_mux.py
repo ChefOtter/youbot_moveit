@@ -3,7 +3,7 @@ import tf
 import actionlib
 import rospy
 
-from control_msgs.msg import FollowJointTrajectoryActionGoal, FollowJointTrajectoryGoal
+from control_msgs.msg import FollowJointTrajectoryAction
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from actionlib_msgs.msg import GoalID
 from geometry_msgs.msg import Quaternion
@@ -32,6 +32,8 @@ class cmd_vel_mux( object ):
         
         #the flag which tells if to publish "cmd_vel" 
         self.publish_cmd_vel = 0
+        
+        self.arm_client = actionlib.SimpleActionClient('arm_1/arm_controller/follow_joint_trajectory', FollowJointTrajectoryAction)           
                         
         return
         
@@ -47,8 +49,11 @@ class cmd_vel_mux( object ):
             twist.angular.x = 0
             twist.angular.y = 0
             twist.angular.z = 0
+            
+            self.arm_client.cancel_goal()
+            self.arm_client.cancel_all_goals()
+            
             self.cmd_pub.publish(twist)
-
             return
         
     def keycb(self, tdat):

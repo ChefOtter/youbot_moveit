@@ -2,6 +2,7 @@
     <node name="youbot_action_server" pkg="youbot_moveit" type="action_server.py"/>
 <!--    <node name="base_controller_test" pkg="youbot_moveit" type="first_controller.py"/>-->
 
+
     <group ns="moveit">
       <!-- By default, we do not start a database (it can be large) -->
       <arg name="db" default="false" />
@@ -51,4 +52,6 @@
     <node name="base_controller" pkg="youbot_moveit" type="base_controller.py" />
     <!-- relay the moviet joint_states message with gazebo joint_states message-->
     <node pkg="topic_tools" type="relay" name="relay2" args="/joint_states /moveit/joint_states " /> 
+    
+<!--    <node name="cmd_vel_mux" pkg="youbot_moveit" type="cmd_vel_mux.py" /> -->
 </launch>
